@@ -110,11 +110,21 @@ posts.forEach(post => {
 
 
 // Cliccando sul tasto “Mi Piace” il colore del testo del bottone cambia e incrementia il counter dei likes relativo
-const likeButton = document.getElementsByClassName("like-button");
+const likeButton = document.getElementsByClassName("like-button"); // ha creato un array di questa classe
 
-likeButton.addEventListener("click", function(){
-    likeButton.style.color = "red";
-})
+for (let i = 0; i < likeButton.length; i++){
+
+    likeButton[i].addEventListener("click",
+    function(){
+
+        likeButton[i].style.color = 'red';
+
+        posts.map(post => {
+            post.likes++;
+        })
+
+    })
+}
 
 
 
