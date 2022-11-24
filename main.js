@@ -94,7 +94,7 @@ posts.forEach(post => {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button" data-postid="1">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -109,19 +109,16 @@ posts.forEach(post => {
 
 
 
-// Cliccando sul tasto “Mi Piace” il colore del testo del bottone cambia e incrementia il counter dei likes relativo
-const likeButton = document.getElementsByClassName("like-button"); // ha creato un array di questa classe
+// Cliccando sul tasto “Mi Piace” il colore del testo del bottone cambia 
+// inoltr incrementa il counter dei likes relativo
+
+const likeButton = document.querySelectorAll(".like-button"); // ha creato un array di questa classe
 
 for (let i = 0; i < likeButton.length; i++){
 
-    likeButton[i].addEventListener("click",
-    function(){
+    document.getElementsByClassName("likes__cta")[i].addEventListener("click",function(){
 
-        likeButton[i].style.color = 'red';
-
-        posts.map(post => {
-            post.likes++;
-        })
+        likeButton[i].classList.toggle("js-like-button");
 
     })
 }
