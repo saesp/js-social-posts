@@ -12,7 +12,7 @@
 
 const posts = [
     {
-        "id": 1,
+        "id": 0,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
         "media": "https://unsplash.it/600/300?image=171",
         "author": {
@@ -23,7 +23,7 @@ const posts = [
         "created": "2021-06-25"
     },
     {
-        "id": 2,
+        "id": 1,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
         "media": "https://unsplash.it/600/400?image=112",
         "author": {
@@ -34,7 +34,7 @@ const posts = [
         "created": "2021-09-03"
     },
     {
-        "id": 3,
+        "id": 2,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
         "media": "https://unsplash.it/600/400?image=234",
         "author": {
@@ -45,7 +45,7 @@ const posts = [
         "created": "2021-05-15"
     },
     {
-        "id": 4,
+        "id": 3,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
@@ -56,7 +56,7 @@ const posts = [
         "created": "2021-04-03"
     },
     {
-        "id": 5,
+        "id": 4,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
         "media": "https://unsplash.it/600/400?image=534",
         "author": {
@@ -76,35 +76,35 @@ posts.forEach(post => {
     console.log(post);
     containerPosts.innerHTML += `
     <div class="post">
-            <div class="post__header">
-                <div class="post-meta">                    
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="${post.author.image}" alt="${post.author.name}">               
-                    </div>
-                    <div class="post-meta__data">
-                        <div class="post-meta__author">${post.author.name}</div>
-                        <div class="post-meta__time">${post.created}</div>
-                    </div>                    
+        <div class="post__header">
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${post.author.image}" alt="${post.author.name}">               
                 </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${post.author.name}</div>
+                    <div class="post-meta__time">${post.created}</div>
+                </div>                    
             </div>
-            <div class="post__text">${post.content}</div>
-            <div class="post__image">
-                <img src="${post.media}" alt="">
-            </div>
-            <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta">
-                        <a class="like-button" data-postid="1">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
-                    </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
-                    </div>
-                </div> 
-            </div>            
-        </div>`
+        </div>
+        <div class="post__text">${post.content}</div>
+        <div class="post__image">
+            <img src="${post.media}" alt="">
+        </div>
+        <div class="post__footer">
+            <div class="likes js-likes">
+                <div class="likes__cta">
+                    <a class="like-button" data-postid="1">
+                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-button__label">Mi Piace</span>
+                    </a>
+                </div>
+                <div class="likes__counter">
+                    Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
+                </div>
+            </div> 
+        </div>            
+    </div>`
 });
 
 
@@ -114,30 +114,34 @@ posts.forEach(post => {
 
 const likeButton = document.querySelectorAll(".like-button"); // ha creato un array di questa classe
 let num = 0;
+const likesArray = [];
+
 
 for (let i = 0; i < likeButton.length; i++){
 
     document.getElementsByClassName("likes__cta")[i].addEventListener("click", function(){
-        
+
        let likes = posts[i].likes;
        let counter = document.getElementsByClassName("js-likes-counter")[i];
-    
+       likeButton[i].classList.toggle("js-like-button");
+
        if (num === 0){
         num++;
         counter.innerHTML = likes + num;
-        likeButton[i].classList.add("js-like-button");
+        likesArray.push(`${i}`);
+        console.log("liked posts:", likesArray); //salvare in un secondo array gli id dei post ai quali abbiamo messo il like
        } else if (num === 1){
         num--;
         counter.innerHTML = likes - num;
-        likeButton[i].classList.remove("js-like-button");
        }
-
     })
+    
 }
 
 
 
-// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like
+
+
 
 
 
