@@ -100,7 +100,7 @@ posts.forEach(post => {
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+                        Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -113,12 +113,24 @@ posts.forEach(post => {
 // inoltr incrementa il counter dei likes relativo
 
 const likeButton = document.querySelectorAll(".like-button"); // ha creato un array di questa classe
+let num = 0;
 
 for (let i = 0; i < likeButton.length; i++){
 
-    document.getElementsByClassName("likes__cta")[i].addEventListener("click",function(){
-
-        likeButton[i].classList.toggle("js-like-button");
+    document.getElementsByClassName("likes__cta")[i].addEventListener("click", function(){
+        
+       let likes = posts[i].likes;
+       let counter = document.getElementsByClassName("js-likes-counter")[i];
+    
+       if (num === 0){
+        num++;
+        counter.innerHTML = likes + num;
+        likeButton[i].classList.add("js-like-button");
+       } else if (num === 1){
+        num--;
+        counter.innerHTML = likes - num;
+        likeButton[i].classList.remove("js-like-button");
+       }
 
     })
 }
